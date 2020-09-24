@@ -1,0 +1,101 @@
+@font-face {
+  font-family: Rubik;
+  src: url('../font/Rubik-Regular.ttf');
+}
+
+body {
+  background-color: #e5e5e5;
+}
+
+* {
+  font-family: Rubik, sans-serif;
+}
+
+.card {
+  position: absolute;
+  width: 500px;
+  height: 600px;
+  left: 433px;
+  top: 0px;
+  margin: 30px auto;
+  box-shadow: 0px 20px 20px 0px #7e98df 5%;
+  background: #ffffff;
+  box-shadow: 0px 20px 20px rgba(126, 152, 223, 0.05);
+  border-radius: 30px;
+  border: #ffffff;
+  padding: 20px 40px 30px 40px;
+}
+
+.login {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
+  text-align: center;
+  letter-spacing: -0.165px;
+  color: #7e98df;
+}
+
+.second {
+  text-align: left;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #232323;
+  padding: 20px 0;
+}
+
+.mr-5 {
+  font-size: 14px;
+  line-height: 17px;
+  color: #848484;
+  opacity: 0.75;
+}
+
+.form-control {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #232323;
+}
+
+.forgot-password {
+  font-size: 16px;
+  line-height: 19px;
+  text-align: right;
+  color: #7e98df;
+  cursor: pointer;
+}
+
+.login-button {
+  width: 370px;
+  margin: 30px auto;
+  background-color: #7e98df !important;
+}
+
+.login-button:hover {
+  background-color: #7189cc !important;
+}
+
+.sign-up {
+  margin-top: 2em;
+  font-size: 14px;
+  line-height: 17px;
+  color: #313131;
+}
+
+.sign-up span {
+  color: #7e98df;
+  cursor: pointer;
+}
+
+.danger-alert {
+  position: absolute;
+  width: 70%;
+  font-size: 12px;
+  margin-left: 16px;
+  bottom: 36.5em;
+  padding: 2px;
+}
