@@ -1,13 +1,13 @@
 <template>
-  <div class="cards">
-    <b-card bg-variant="white" class="text-center">
+  <div class="register">
+    <b-container class="register-card">
       <div>
         <img
           class="back-btn"
           @click="toLogin()"
           src="@/assets/image/back.png"
         />
-        <p class="register">Register</p>
+        <p class="register-header">Register</p>
       </div>
       <b-card-text class="second">Let's create your account!</b-card-text>
       <b-alert :show="alert" class="danger-alert" variant="danger">{{
@@ -35,7 +35,7 @@
         </div>
         <b-button pill type="submit" class="register-button">Register</b-button>
       </b-form>
-    </b-card>
+    </b-container>
   </div>
 </template>
 
@@ -127,7 +127,7 @@ export default {
               this.isMsg = error.data.msg
               setTimeout(() => {
                 this.alert = false
-              }, 5000)
+              }, 100000)
             }
           })
       }
@@ -145,4 +145,4 @@ export default {
 }
 </script>
 
-<style src="../assets/css/register.css"></style>
+<style scoped src="../assets/css/register.css"></style>
