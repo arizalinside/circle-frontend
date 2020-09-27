@@ -11,7 +11,15 @@ body {
   font-family: Rubik, sans-serif;
 }
 
-.card {
+.register {
+  background-color: #f6f6f6;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-card {
   position: absolute;
   width: 500px;
   height: 600px;
@@ -28,12 +36,12 @@ body {
 
 .back-btn {
   position: absolute;
-  left: 62px;
-  top: 45px;
+  left: 43px;
+  top: 32px;
   cursor: pointer;
 }
 
-.register {
+.register-header {
   font-style: normal;
   font-weight: 600;
   font-size: 22px;
@@ -41,6 +49,7 @@ body {
   text-align: center;
   letter-spacing: -0.165px;
   color: #7e98df;
+  margin: 10px auto;
 }
 
 .second {
@@ -70,7 +79,7 @@ body {
 
 .register-button {
   width: 370px;
-  margin: 30px auto;
+  margin: 20px 25px;
   background-color: #7e98df !important;
 }
 
@@ -82,7 +91,8 @@ body {
   position: absolute;
   width: 70%;
   font-size: 12px;
-  margin-left: 16px;
-  bottom: 36.5em;
+  margin-left: 40px;
+  bottom: 37.5em;
   padding: 2px;
+  text-align: center;
 }

@@ -1,0 +1,110 @@
+@font-face {
+  font-family: Rubik;
+  src: url('../font/Rubik-Regular.ttf');
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Rubik;
+}
+
+.list {
+  width: 350px;
+  height: 1024px;
+  left: 0px;
+  top: 0px;
+}
+
+.logo-text {
+  position: absolute;
+  width: 128px;
+  height: 34px;
+  left: 30px;
+  top: 43px;
+  font-weight: 500;
+  font-size: 29px;
+  line-height: 34px;
+  text-align: center;
+  letter-spacing: -0.165px;
+  color: #7e98df;
+}
+
+.hamburger {
+  position: absolute;
+  width: 22px;
+  height: 18.7px;
+  left: 298px;
+  top: 51px;
+}
+
+.search-box {
+  position: absolute;
+  width: 250px;
+  height: 60px;
+  left: 30px;
+  top: 127px;
+  padding-left: 55px;
+  border: 1px solid white;
+  background: #fafafa;
+  background-image: url('../image/search.png');
+  background-repeat: no-repeat;
+  background-position: 0.5cm;
+  border-radius: 15px;
+}
+
+.plus-btn {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  left: 20px;
+  top: 146px;
+}
+
+.category-1 {
+  position: absolute;
+  width: 25px;
+  height: 24px;
+  left: 30px;
+  top: 225px;
+  cursor: pointer;
+}
+
+.category-2 {
+  position: absolute;
+  width: 97px;
+  height: 24px;
+  left: 103px;
+  top: 225px;
+  cursor: pointer;
+}
+
+.category-3 {
+  position: absolute;
+  width: 70px;
+  height: 24px;
+  left: 248px;
+  top: 225px;
+  cursor: pointer;
+}
+
+.room {
+  position: absolute;
+  width: 1016px;
+  height: 1024px;
+  left: 350px;
+  top: 0px;
+
+  background: #fafafa;
+}
+
+.empty-room p {
+  position: absolute;
+  width: 438px;
+  height: 28px;
+  left: 250px;
+  top: 498px;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 28px;
+  color: #848484;
+}
