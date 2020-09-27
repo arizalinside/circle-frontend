@@ -1,7 +1,7 @@
 <template>
-  <div class="cards">
-    <b-card bg-variant="white" class="text-center">
-      <p class="login">Login</p>
+  <div class="login">
+    <b-container class="login-card">
+      <p class="login-header">Login</p>
       <b-card-text class="second">Hi, welcome back</b-card-text>
       <b-alert :show="alert" class="danger-alert" variant="danger">{{
         isMsg
@@ -16,12 +16,12 @@
           />
         </div>
         <p class="forgot-password">Forgot password?</p>
-        <b-button pill type="submit" class="login-button">Register</b-button>
+        <b-button pill type="submit" class="login-button">Login</b-button>
         <p class="sign-up">
           Don't have an account? <span @click="signUp()">Sign Up</span>
         </p>
       </b-form>
-    </b-card>
+    </b-container>
   </div>
 </template>
 
@@ -80,4 +80,4 @@ export default {
 }
 </script>
 
-<style src="../assets/css/login.css"></style>
+<style scoped src="../assets/css/login.css"></style>
