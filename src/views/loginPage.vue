@@ -8,12 +8,18 @@
       }}</b-alert>
       <b-form @submit.prevent="onSubmit">
         <div class="grey-text">
-          <mdb-input label="Email" v-model="form.user_email" type="email" />
-          <mdb-input
-            label="Password"
+          <b-form-input
+            class="form-email"
+            placeholder="Email"
+            v-model="form.user_email"
+            type="email"
+          ></b-form-input>
+          <b-form-input
+            class="form-password"
+            placeholder="Password"
             v-model="form.user_password"
             type="password"
-          />
+          ></b-form-input>
         </div>
         <p class="forgot-password">Forgot password?</p>
         <b-button pill type="submit" class="login-button">Login</b-button>
@@ -26,14 +32,10 @@
 </template>
 
 <script>
-import { mdbInput } from 'mdbvue'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'loginPage',
-  components: {
-    mdbInput
-  },
   data() {
     return {
       alert: false,
