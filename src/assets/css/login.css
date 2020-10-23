@@ -20,9 +20,8 @@ body {
 }
 
 .login-card {
-  position: absolute;
   width: 500px;
-  height: 600px;
+  height: 470px;
   left: 433px;
   top: 0px;
   margin: 30px auto;
@@ -56,6 +55,19 @@ body {
   padding: 20px 0;
 }
 
+.form-email {
+  border: none;
+  border-bottom: 1px solid #232323;
+  border-radius: 0px;
+}
+
+.form-password {
+  margin-top: 20px;
+  border: none;
+  border-bottom: 1px solid #232323;
+  border-radius: 0px;
+}
+
 .mr-5 {
   font-size: 14px;
   line-height: 17px;
@@ -83,6 +95,7 @@ body {
   width: 370px;
   margin: 30px 25px;
   background-color: #7e98df !important;
+  border: none;
 }
 
 .login-button:hover {

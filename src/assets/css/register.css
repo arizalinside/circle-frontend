@@ -20,12 +20,9 @@ body {
 }
 
 .register-card {
-  position: absolute;
   width: 500px;
-  height: 600px;
-  left: 433px;
-  top: 0px;
-  margin: 30px auto;
+  height: 570px;
+  margin: 50px auto;
   box-shadow: 0px 20px 20px 0px #7e98df 5%;
   background: #ffffff;
   box-shadow: 0px 20px 20px rgba(126, 152, 223, 0.05);
@@ -34,25 +31,30 @@ body {
   padding: 20px 40px 30px 40px;
 }
 
+.header-1 {
+  margin: 15px 0px;
+}
+
 .back-btn {
-  position: absolute;
   left: 43px;
   top: 32px;
   cursor: pointer;
+  padding-top: 7px;
 }
 
 .register-header {
+  padding-right: 70px;
   font-style: normal;
   font-weight: 600;
   font-size: 22px;
-  line-height: 26px;
   text-align: center;
   letter-spacing: -0.165px;
   color: #7e98df;
-  margin: 10px auto;
+  margin: auto;
 }
 
 .second {
+  margin: 0;
   text-align: left;
   font-family: Rubik;
   font-style: normal;
@@ -61,6 +63,40 @@ body {
   line-height: 17px;
   color: #232323;
   padding: 20px 0;
+}
+
+.input-name {
+  border: none;
+  border-bottom: 1px solid #232323;
+  border-radius: 0px;
+}
+
+.input-email {
+  margin-top: 20px;
+  border: none;
+  border-bottom: 1px solid #232323;
+  border-radius: 0px;
+}
+
+.input-username {
+  margin-top: 20px;
+  border: none;
+  border-bottom: 1px solid #232323;
+  border-radius: 0px;
+}
+
+.input-number {
+  margin-top: 20px;
+  border: none;
+  border-bottom: 1px solid #232323;
+  border-radius: 0px;
+}
+
+.input-password {
+  margin-top: 20px;
+  border: none;
+  border-bottom: 1px solid #232323;
+  border-radius: 0px;
 }
 
 .mr-5 {
@@ -79,8 +115,11 @@ body {
 
 .register-button {
   width: 370px;
-  margin: 20px 25px;
+  margin-top: 60px;
+  margin-left: 25px;
+  margin-right: 25px;
   background-color: #7e98df !important;
+  border: none;
 }
 
 .register-button:hover {
@@ -88,11 +127,10 @@ body {
 }
 
 .danger-alert {
-  position: absolute;
-  width: 70%;
+  /* width: 70%;
   font-size: 12px;
   margin-left: 40px;
   bottom: 37.5em;
   padding: 2px;
-  text-align: center;
+  text-align: center; */
 }
