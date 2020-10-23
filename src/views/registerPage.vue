@@ -1,37 +1,54 @@
 <template>
   <div class="register">
     <b-container class="register-card">
-      <div>
-        <img
-          class="back-btn"
-          @click="toLogin()"
-          src="@/assets/image/back.png"
-        />
-        <p class="register-header">Register</p>
-      </div>
+      <b-row class="header-1">
+        <b-col sm="2">
+          <img
+            class="back-btn"
+            @click="toLogin()"
+            src="@/assets/image/back.png"
+          />
+        </b-col>
+        <b-col sm="10">
+          <p class="register-header">Register</p>
+        </b-col>
+      </b-row>
       <b-card-text class="second">Let's create your account!</b-card-text>
       <b-alert :show="alert" class="danger-alert" variant="danger">{{
         isMsg
       }}</b-alert>
       <b-form @submit.prevent="onSubmit">
         <div class="grey-text">
-          <mdb-input label="Name" v-model="form.user_name" type="text" />
-          <mdb-input label="Email" v-model="form.user_email" type="email" />
-          <mdb-input
-            label="Username"
+          <b-form-input
+            class="input-name"
+            placeholder="Name"
+            v-model="form.user_name"
+            type="text"
+          ></b-form-input>
+          <b-form-input
+            class="input-email"
+            placeholder="Email"
+            v-model="form.user_email"
+            type="email"
+          ></b-form-input>
+          <b-form-input
+            class="input-username"
+            placeholder="Username"
             v-model="form.user_username"
             type="text"
-          />
-          <mdb-input
-            label="Phone number"
+          ></b-form-input>
+          <b-form-input
+            class="input-number"
+            placeholder="Phone number"
             v-model="form.user_phone"
             type="text"
-          />
-          <mdb-input
-            label="Password"
+          ></b-form-input>
+          <b-form-input
+            class="input-password"
+            placeholder="Password"
             v-model="form.user_password"
             type="password"
-          />
+          ></b-form-input>
         </div>
         <b-button pill type="submit" class="register-button">Register</b-button>
       </b-form>
@@ -40,14 +57,10 @@
 </template>
 
 <script>
-import { mdbInput } from 'mdbvue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'registerPage',
-  components: {
-    mdbInput
-  },
   data() {
     return {
       alert: false,
@@ -70,7 +83,7 @@ export default {
         this.isMsg = "Your name can't be empty"
         setTimeout(() => {
           this.alert = false
-        }, 5000)
+        }, 5000000)
       } else if (this.form.user_email === '') {
         this.alert = true
         this.isMsg = "Email can't be empty"
