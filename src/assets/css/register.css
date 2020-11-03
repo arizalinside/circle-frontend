@@ -127,10 +127,5 @@ body {
 }
 
 .danger-alert {
-  /* width: 70%;
-  font-size: 12px;
-  margin-left: 40px;
-  bottom: 37.5em;
-  padding: 2px;
-  text-align: center; */
+  line-height: 5px;
 }
