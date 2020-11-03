@@ -4,16 +4,21 @@ import router from '../../router/index'
 export default {
   state: {
     user: {},
+    userData: {},
     token: localStorage.getItem('token') || null,
-    user_id: '',
     errorLogin: ''
   },
   mutations: {
     setUser(state, payload) {
       state.user = payload
       state.token = payload.token
-      state.user_id = payload.user_id
+      state.userData = payload.user_id
+      // console.log(state.user)
     },
+    // setUserData(state, payload) {
+    //   console.log(payload)
+    //   state.userData = payload
+    // },
     setError(state, payload) {
       state.errorLogin = payload
     },
@@ -23,6 +28,20 @@ export default {
     }
   },
   actions: {
+    getUserById(context, payload) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`http://127.0.0.1:3000/user/${payload}`)
+          .then(response => {
+            console.log(response.data)
+            // context.commit('setUserData', response.data.data[0])
+            // resolve(response.data)
+          })
+          .catch(error => {
+            reject(error.response)
+          })
+      })
+    },
     registerUser(context, payload) {
       return new Promise((resolve, reject) => {
         axios
@@ -46,6 +65,7 @@ export default {
             context.commit('setUser', response.data.data)
             localStorage.setItem('token', response.data.data.token)
             resolve(response.data)
+            console.log(response)
           })
           .catch(error => {
             reject(error.response)
@@ -111,8 +131,8 @@ export default {
     getUser(state) {
       return state.user
     },
-    getUserId(state) {
-      return state.user_id
+    getUserData(state) {
+      return state.userData
     }
   }
 }
