@@ -83,7 +83,7 @@ export default {
         this.isMsg = "Your name can't be empty"
         setTimeout(() => {
           this.alert = false
-        }, 5000000)
+        }, 5000)
       } else if (this.form.user_email === '') {
         this.alert = true
         this.isMsg = "Email can't be empty"
@@ -140,7 +140,7 @@ export default {
               this.isMsg = error.data.msg
               setTimeout(() => {
                 this.alert = false
-              }, 100000)
+              }, 2000)
             }
           })
       }

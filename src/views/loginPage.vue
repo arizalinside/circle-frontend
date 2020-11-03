@@ -60,7 +60,7 @@ export default {
             autoHideDelay: 1000
           })
           setTimeout(() => {
-            this.$router.push('/home')
+            this.$router.push('/')
           }, 2000)
           console.log(result)
           this.getUserById(result.data.user_id)
