@@ -19,29 +19,91 @@
                   class="edit-icon"
                 ></b-img> -->
               </div>
-              <h4 class="profile-name">{{ name }}</h4>
-              <h6 class="profile-username">{{ username }}</h6>
+              <h4 class="profile-name">{{ user.user_name }}</h4>
+              <h6 class="profile-username">{{ user.user_username }}</h6>
             </div>
 
             <div class="account-user">
               <h5 class="account-header">Phone Number</h5>
-              <p class="account-phnumber">{{ phoneNumber }}</p>
+              <p class="account-phnumber">{{ user.user_phone }}</p>
             </div>
 
             <hr style="width: 90%;margin:auto;" />
 
             <div class="bio-user">
-              <p class="biodata">{{ bio }}</p>
+              <p class="biodata">{{ user.user_bio }}</p>
               <p class="bio-text">Bio</p>
             </div>
 
             <hr style="width: 90%;margin:auto;" />
 
             <div>
-              <b-button class="edit-profile" variant="outline-primary"
+              <b-button
+                class="edit-profile"
+                variant="outline-primary"
+                v-b-modal.modal-1
+                @click.prevent="editProfileBtn()"
                 >Edit Profile</b-button
               >
             </div>
+
+            <b-modal
+              id="modal-1"
+              :title="modalTitle"
+              hide-footer
+              v-model="showModal"
+            >
+              <b-form>
+                <b-form-group
+                  label-cols-sm="3"
+                  label="Name"
+                  label-for="nested-name"
+                >
+                  <b-form-input
+                    id="nested-name"
+                    v-model="form.user_name"
+                  ></b-form-input>
+                </b-form-group>
+
+                <b-form-group
+                  label-cols-sm="3"
+                  label="Username"
+                  label-for="nested-username"
+                >
+                  <b-form-input
+                    id="nested-username"
+                    v-model="form.user_username"
+                  ></b-form-input>
+                </b-form-group>
+
+                <b-form-group
+                  label-cols-sm="3"
+                  label="Phone Number"
+                  label-for="nested-phone"
+                >
+                  <b-form-select v-model="form.user_phone" id="nested-product">
+                  </b-form-select>
+                </b-form-group>
+
+                <b-form-group
+                  label-cols-sm="3"
+                  label="Image"
+                  label-for="nested-image"
+                >
+                  <b-form-file id="nested-image" @change="uploadFile">
+                  </b-form-file>
+                  <br />
+                  <span style="color: grey">(Max. 2MB)</span>
+                </b-form-group>
+
+                <b-button
+                  type="submit"
+                  variant="primary"
+                  @click.prevent="updateProfile()"
+                  >Update</b-button
+                >
+              </b-form>
+            </b-modal>
           </b-sidebar>
         </div>
         <b-col sm="10" class="logo-text">
@@ -107,8 +169,8 @@
           </b-col>
           <b-col sm="6">
             <p class="room-name">{{ value.name }}</p>
-            <p class="room-msg" v-if="isSender">Me: {{ value.message }}</p>
-            <p class="room-msg" v-else>{{ value.message }}</p>
+            <!-- <p class="room-msg" v-if="isSender">Me: {{ value.message }}</p> -->
+            <p class="room-msg">{{ value.message }}</p>
           </b-col>
           <b-col sm="3">
             <p class="room-time">{{ value.time }}</p>
@@ -124,16 +186,25 @@
 
 <script>
 // import axios from 'axios'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'List',
   data() {
     return {
-      name: 'Gloria McKinney',
+      form: {
+        user_name: '',
+        user_username: '',
+        user_phone: '',
+        user_bio: '',
+        user_image: ''
+      },
+      modalTitle: '',
+      showModal: false,
       username: '@gloriamckinney',
       phoneNumber: '+6281310918549',
       bio: "I'm Senior Developer from Microsoft and then im like culinary",
-      user: {},
+      // user: {},
       room: [
         {
           img: require('@/assets/image/dummy2.png'),
@@ -186,22 +257,43 @@ export default {
       ]
       //     urlApiHome: 'http://localhost:3000/home'
     }
+  },
+  computed: {
+    ...mapGetters({
+      user: 'getUser',
+      userData: 'setUserData'
+      // user_id: 'setUserId'
+    })
+  },
+  created() {
+    console.log(this.user)
+    this.getUserById(this.user.user_id)
+    //   // this.getAllUser()
+  },
+  methods: {
+    ...mapActions(['getUserById']),
+    // created() {
+    //   this.getUser(this.user.user_id)
+    // },
+    // methods: {
+    //   getUser() {
+    //     axios
+    //       .get('http://127.0.0.1:3000/user/')
+    //       .then(response => {
+    //         console.log(response)
+    //       })
+    //       .catch(error => {
+    //         console.log(error)
+    //       })
+    //   }
+    // }
+    editProfileBtn() {
+      this.form = {
+        user_name: '',
+        user_username: ''
+      }
+    }
   }
-  // created() {
-  //   this.getUser()
-  // },
-  // methods: {
-  //   getUser() {
-  //     axios
-  //       .get('http://127.0.0.1:3000/user/')
-  //       .then(response => {
-  //         console.log(response)
-  //       })
-  //       .catch(error => {
-  //         console.log(error)
-  //       })
-  //   }
-  // }
 }
 </script>
 
