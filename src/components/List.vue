@@ -219,13 +219,13 @@
         </b-modal>
 
         <b-modal
-          id="add-friend-modal"
-          ref="add-friend-modal"
+          id="contacts-modal"
+          ref="contacts-modal"
           header-bg-variant="info"
           header-text-variant="light"
           centered
           hide-footer
-          title="Add Friend"
+          title="Contacts"
         >
         </b-modal>
       </b-row>
