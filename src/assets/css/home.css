@@ -83,14 +83,11 @@
 
 .account-header {
   margin: 50px 0 12px;
+  font-weight: bold;
 }
 
 .account-phnumber {
   font-size: 14px;
-}
-
-.account-header {
-  font-weight: bold;
 }
 
 .bio-user {
@@ -110,6 +107,11 @@
   margin-left: 32px;
   margin-top: 20px;
   width: 250px;
+}
+
+.location-title {
+  margin: 20px 17px;
+  font-weight: bold;
 }
 
 /* .profile-name {
