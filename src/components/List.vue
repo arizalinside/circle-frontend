@@ -11,7 +11,9 @@
             shadow
           >
             <div class="profile-user">
-              <b-img :src="'http://127.0.0.1:3000/' + userData.user_image"></b-img>
+              <b-img
+                :src="'http://127.0.0.1:3000/' + userData.user_image"
+              ></b-img>
               <div class="change-profile">
                 <!-- <span>Change Photo</span>
                 <b-img
@@ -42,7 +44,7 @@
                 class="edit-profile"
                 variant="outline-primary"
                 v-b-modal.edit-user
-                @click.prevent="editProfileBtn(user)"
+                @click.prevent="editProfileBtn(userData)"
                 >Edit Profile</b-button
               >
             </div>
@@ -127,6 +129,24 @@
                 >
               </b-form>
             </b-modal>
+
+            <div class="user-location">
+              <h5 class="location-title">Location</h5>
+              <GmapMap
+                :center="coordinate"
+                :zoom="15"
+                map-type-id="terrain"
+                style="width: 100%; height: 300px"
+              >
+                <GmapMarker
+                  @click="clickMarker"
+                  :position="coordinate"
+                  :clickable="true"
+                  :draggable="true"
+                  icon="https://img.icons8.com/color/48/000000/map-pin.png"
+                />
+              </GmapMap>
+            </div>
           </b-sidebar>
         </div>
         <b-col sm="10" class="logo-text">
@@ -161,10 +181,12 @@
               />
               Invite Friends
             </h5>
-            <h5 class="popover-text">
-              <img src="../assets/image/people.png" class="popover-image" />
-              Logout
-            </h5>
+            <div @click.prevent="isLogout()">
+              <h5 class="popover-text">
+                <img src="../assets/image/people.png" class="popover-image" />
+                Logout
+              </h5>
+            </div>
           </b-popover>
         </b-col>
       </b-row>
@@ -226,6 +248,10 @@ export default {
       userId: '',
       isMsg: '',
       showModal: false,
+      coordinate: {
+        lat: 0,
+        lng: 0
+      },
       username: '@gloriamckinney',
       phoneNumber: '+6281310918549',
       bio: "I'm Senior Developer from Microsoft and then im like culinary",
@@ -293,10 +319,25 @@ export default {
   created() {
     // console.log(this.user)
     this.getUserById(this.user.user_id)
+    this.$getLocation()
+      .then(coordinates => {
+        this.coordinate = {
+          lat: coordinates.lat,
+          lng: coordinates.lng
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        // this.$bvToast.toast('Cannot get location', {
+        //   title: 'Notification',
+        //   variant: 'danger',
+        //   solid: true
+        // })
+      })
     //   // this.getAllUser()
   },
   methods: {
-    ...mapActions(['getUserById', 'updateUser']),
+    ...mapActions(['getUserById', 'updateUser', 'logout']),
     // created() {
     //   this.getUser(this.user.user_id)
     // },
@@ -312,6 +353,16 @@ export default {
     //       })
     //   }
     // }
+    clickMarker(position) {
+      console.log('clicked')
+      console.log(position)
+      console.log(position.latLng.lat())
+      console.log(position.latLng.lng())
+      this.coordinate = {
+        lat: position.latLng.lat(),
+        lng: position.latLng.lng()
+      }
+    },
     editProfileBtn(data) {
       this.showModal = true
       this.modalTitle = 'Edit Profile'
@@ -372,6 +423,30 @@ export default {
     },
     closeModal() {
       this.$refs['edit-user'].hide()
+    },
+    isLogout() {
+      this.$bvModal
+        .msgBoxConfirm('Do you want to exit?', {
+          title: 'Please Confirm',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'danger',
+          okTitle: 'Yes',
+          cancelTitle: 'No',
+          footerClass: 'p-2',
+          hideHeaderClose: false,
+          centered: true
+        })
+        .then(value => {
+          value ? this.logout() : this.getUserById(this.user.user_id)
+        })
+        .catch(error => {
+          this.$bvToast.toast(`${error.data.msg}`, {
+            title: 'Notification',
+            variant: 'danger',
+            solid: true
+          })
+        })
     }
   }
 }
