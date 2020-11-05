@@ -11,7 +11,7 @@
             shadow
           >
             <div class="profile-user">
-              <b-img :src="require('@/assets/image/dummy1.png')"></b-img>
+              <b-img :src="'http://127.0.0.1:3000/' + userData.user_image"></b-img>
               <div class="change-profile">
                 <!-- <span>Change Photo</span>
                 <b-img
@@ -19,19 +19,19 @@
                   class="edit-icon"
                 ></b-img> -->
               </div>
-              <h4 class="profile-name">{{ user.user_name }}</h4>
-              <h6 class="profile-username">{{ user.user_username }}</h6>
+              <h4 class="profile-name">{{ userData.user_name }}</h4>
+              <h6 class="profile-username">{{ userData.user_username }}</h6>
             </div>
 
             <div class="account-user">
               <h5 class="account-header">Phone Number</h5>
-              <p class="account-phnumber">{{ user.user_phone }}</p>
+              <p class="account-phnumber">{{ userData.user_phone }}</p>
             </div>
 
             <hr style="width: 90%;margin:auto;" />
 
             <div class="bio-user">
-              <p class="biodata">{{ user.user_bio }}</p>
+              <p class="biodata">{{ userData.user_bio }}</p>
               <p class="bio-text">Bio</p>
             </div>
 
@@ -41,14 +41,14 @@
               <b-button
                 class="edit-profile"
                 variant="outline-primary"
-                v-b-modal.modal-1
-                @click.prevent="editProfileBtn()"
+                v-b-modal.edit-user
+                @click.prevent="editProfileBtn(user)"
                 >Edit Profile</b-button
               >
             </div>
 
             <b-modal
-              id="modal-1"
+              id="edit-user"
               :title="modalTitle"
               hide-footer
               v-model="showModal"
@@ -62,6 +62,7 @@
                   <b-form-input
                     id="nested-name"
                     v-model="form.user_name"
+                    type="text"
                   ></b-form-input>
                 </b-form-group>
 
@@ -73,6 +74,7 @@
                   <b-form-input
                     id="nested-username"
                     v-model="form.user_username"
+                    type="text"
                   ></b-form-input>
                 </b-form-group>
 
@@ -81,8 +83,25 @@
                   label="Phone Number"
                   label-for="nested-phone"
                 >
-                  <b-form-select v-model="form.user_phone" id="nested-product">
-                  </b-form-select>
+                  <b-form-input
+                    v-model="form.user_phone"
+                    id="nested-product"
+                    type="text"
+                  >
+                  </b-form-input>
+                </b-form-group>
+
+                <b-form-group
+                  label-cols-sm="3"
+                  label="Bio"
+                  label-for="nested-bio"
+                >
+                  <b-form-input
+                    v-model="form.user_bio"
+                    id="nested-bio"
+                    type="text"
+                  >
+                  </b-form-input>
                 </b-form-group>
 
                 <b-form-group
@@ -90,7 +109,11 @@
                   label="Image"
                   label-for="nested-image"
                 >
-                  <b-form-file id="nested-image" @change="uploadFile">
+                  <b-form-file
+                    id="nested-image"
+                    @change="uploadFile"
+                    type="file"
+                  >
                   </b-form-file>
                   <br />
                   <span style="color: grey">(Max. 2MB)</span>
@@ -200,6 +223,8 @@ export default {
         user_image: ''
       },
       modalTitle: '',
+      userId: '',
+      isMsg: '',
       showModal: false,
       username: '@gloriamckinney',
       phoneNumber: '+6281310918549',
@@ -266,12 +291,12 @@ export default {
     })
   },
   created() {
-    console.log(this.user)
+    // console.log(this.user)
     this.getUserById(this.user.user_id)
     //   // this.getAllUser()
   },
   methods: {
-    ...mapActions(['getUserById']),
+    ...mapActions(['getUserById', 'updateUser']),
     // created() {
     //   this.getUser(this.user.user_id)
     // },
@@ -287,11 +312,66 @@ export default {
     //       })
     //   }
     // }
-    editProfileBtn() {
+    editProfileBtn(data) {
+      this.showModal = true
+      this.modalTitle = 'Edit Profile'
       this.form = {
-        user_name: '',
-        user_username: ''
+        user_name: data.user_name,
+        user_username: data.user_username,
+        user_phone: data.user_phone,
+        user_bio: data.user_bio,
+        user_image: data.user_image
       }
+      this.userId = data.user_id
+    },
+    updateProfile() {
+      const data = new FormData()
+      data.append('user_name', this.form.user_name)
+      data.append('user_username', this.form.user_username)
+      data.append('user_phone', this.form.user_phone)
+      data.append('user_bio', this.form.user_bio)
+      data.append('user_image', this.form.user_image)
+      const setData = {
+        user_id: this.user.user_id,
+        form: data
+      }
+      this.updateUser(setData)
+        .then(response => {
+          // this.isMsg = response.data.msg
+          this.$bvToast.toast(`${response.data.msg}`, {
+            title: 'Notification',
+            variant: 'success',
+            solid: true
+          })
+          // this.closeModal()
+          this.showModal = false
+          this.getUserById(this.user.user_id)
+        })
+        .catch(error => {
+          console.log(error)
+          // this.isMsg = error.response.data.msg
+          // this.makeToast = (this.isMsg, 'danger')
+          this.$bvToast.toast(`${error.data.msg}`, {
+            title: 'Notification',
+            variant: 'danger',
+            solid: true
+          })
+        })
+    },
+    uploadFile(event) {
+      this.form.user_image = event.target.files[0]
+    },
+    makeToast(msg, variant = null, append = false) {
+      this.$bvToast(`${msg}`, {
+        title: 'Notification',
+        autoHideDelay: 5000,
+        appendToast: append,
+        variant: variant,
+        solid: true
+      })
+    },
+    closeModal() {
+      this.$refs['edit-user'].hide()
     }
   }
 }

@@ -15,10 +15,10 @@ export default {
       state.userData = payload.user_id
       // console.log(state.user)
     },
-    // setUserData(state, payload) {
-    //   console.log(payload)
-    //   state.userData = payload
-    // },
+    setUserData(state, payload) {
+      // console.log(payload)
+      state.userData = payload
+    },
     setError(state, payload) {
       state.errorLogin = payload
     },
@@ -33,9 +33,9 @@ export default {
         axios
           .get(`http://127.0.0.1:3000/user/${payload}`)
           .then(response => {
-            console.log(response.data)
-            // context.commit('setUserData', response.data.data[0])
-            // resolve(response.data)
+            // console.log(response.data.data[0])
+            context.commit('setUserData', response.data.data[0])
+            resolve(response.data)
           })
           .catch(error => {
             reject(error.response)
@@ -131,7 +131,7 @@ export default {
     getUser(state) {
       return state.user
     },
-    getUserData(state) {
+    setUserData(state) {
       return state.userData
     }
   }
