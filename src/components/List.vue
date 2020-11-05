@@ -169,18 +169,22 @@
               <img src="../assets/image/gear.png" class="popover-image" />
               Setting
             </h5>
-            <h5 class="popover-text">
-              <img src="../assets/image/people.png" class="popover-image" />
-              Contacts
-            </h5>
-            <h5 class="popover-text">
-              <img
-                src="../assets/image/addfriends.png"
-                class="popover-image"
-                style="margin-right:12px;"
-              />
-              Invite Friends
-            </h5>
+            <div class="contacts" v-b-modal.contacts-modal>
+              <h5 class="popover-text">
+                <img src="../assets/image/people.png" class="popover-image" />
+                Contacts
+              </h5>
+            </div>
+            <div class="invite-friend" v-b-modal.add-friend-modal>
+              <h5 class="popover-text">
+                <img
+                  src="../assets/image/addfriends.png"
+                  class="popover-image"
+                  style="margin-right:12px;"
+                />
+                Invite Friends
+              </h5>
+            </div>
             <div @click.prevent="isLogout()">
               <h5 class="popover-text">
                 <img src="../assets/image/people.png" class="popover-image" />
@@ -189,6 +193,41 @@
             </div>
           </b-popover>
         </b-col>
+
+        <b-modal
+          id="add-friend-modal"
+          ref="add-friend-modal"
+          header-bg-variant="info"
+          header-text-variant="light"
+          centered
+          hide-footer
+          title="Add Friend"
+        >
+          <h4>Invite Friends</h4>
+          <b-form inline @submit.prevent="addFriend">
+            <b-input
+              placeholder="Email"
+              class="col-8"
+              v-model="form.friend_email"
+              required
+            />
+            <b-button>Add</b-button>
+          </b-form>
+          <b-alert class="mt-3" variant="danger" :show="isAlert">{{
+            alertMsg
+          }}</b-alert>
+        </b-modal>
+
+        <b-modal
+          id="add-friend-modal"
+          ref="add-friend-modal"
+          header-bg-variant="info"
+          header-text-variant="light"
+          centered
+          hide-footer
+          title="Add Friend"
+        >
+        </b-modal>
       </b-row>
       <b-row>
         <b-col sm="10">
