@@ -169,7 +169,11 @@
               <img src="../assets/image/gear.png" class="popover-image" />
               Setting
             </h5>
-            <div class="contacts" v-b-modal.contacts-modal>
+            <div
+              class="contacts"
+              @click="get_friendList"
+              v-b-modal.contacts-modal
+            >
               <h5 class="popover-text">
                 <img src="../assets/image/people.png" class="popover-image" />
                 Contacts
@@ -197,7 +201,7 @@
         <b-modal
           id="add-friend-modal"
           ref="add-friend-modal"
-          header-bg-variant="info"
+          header-bg-variant="primary"
           header-text-variant="light"
           centered
           hide-footer
@@ -208,10 +212,11 @@
             <b-input
               placeholder="Email"
               class="col-8"
+              type="email"
               v-model="form.friend_email"
               required
             />
-            <b-button>Add</b-button>
+            <b-button type="submit" variant="primary">Add</b-button>
           </b-form>
           <b-alert class="mt-3" variant="danger" :show="isAlert">{{
             alertMsg
@@ -221,12 +226,39 @@
         <b-modal
           id="contacts-modal"
           ref="contacts-modal"
-          header-bg-variant="info"
+          header-bg-variant="primary"
           header-text-variant="light"
           centered
           hide-footer
           title="Contacts"
         >
+          <b-row
+            v-for="(value, index) in friendList"
+            :key="index"
+            class="card-friends"
+          >
+            <b-col cols="2" @click="setFriendProfile(value.friend_id)">
+              <img
+                :src="api_url + value.friend_image"
+                style="width: 50px; border-radius: 10px"
+                v-if="value.friend_image !== ''"
+              />
+              <img
+                src="@/assets/image/blank-profile.jpg"
+                style="width: 50px; border-radius: 10px"
+                v-else
+              />
+            </b-col>
+            <b-col cols="8" @click="setFriendProfile(value.friend_id)"
+              ><span>{{ value.friend_name }}</span></b-col
+            >
+            <b-col cols="2">
+              <font-awesome-icon
+                :icon="['far', 'paper-plane']"
+                @click="create_room(value.friend_id)"
+              ></font-awesome-icon>
+            </b-col>
+          </b-row>
         </b-modal>
       </b-row>
       <b-row>
@@ -291,6 +323,9 @@ export default {
         lat: 0,
         lng: 0
       },
+      isAlert: false,
+      alertMsg: '',
+      api_url: 'http://127.0.0.1:3000/',
       username: '@gloriamckinney',
       phoneNumber: '+6281310918549',
       bio: "I'm Senior Developer from Microsoft and then im like culinary",
@@ -351,7 +386,8 @@ export default {
   computed: {
     ...mapGetters({
       user: 'getUser',
-      userData: 'setUserData'
+      userData: 'setUserData',
+      friendList: 'getFriendList'
       // user_id: 'setUserId'
     })
   },
@@ -376,7 +412,7 @@ export default {
     //   // this.getAllUser()
   },
   methods: {
-    ...mapActions(['getUserById', 'updateUser', 'logout']),
+    ...mapActions(['getFriendByUser', 'getUserById', 'updateUser', 'addFriends', 'logout']),
     // created() {
     //   this.getUser(this.user.user_id)
     // },
@@ -392,6 +428,12 @@ export default {
     //       })
     //   }
     // }
+    get_friendList() {
+      this.getFriendByUser(this.user.user_id)
+    },
+    create_room() {
+
+    },
     clickMarker(position) {
       console.log('clicked')
       console.log(position)
@@ -441,7 +483,7 @@ export default {
           console.log(error)
           // this.isMsg = error.response.data.msg
           // this.makeToast = (this.isMsg, 'danger')
-          this.$bvToast.toast(`${error.data.msg}`, {
+          this.$bvToast.toast(`${error.msg}`, {
             title: 'Notification',
             variant: 'danger',
             solid: true
@@ -451,7 +493,31 @@ export default {
     uploadFile(event) {
       this.form.user_image = event.target.files[0]
     },
-    makeToast(msg, variant = null, append = false) {
+    addFriend() {
+      this.form.user_id = this.user.user_id
+      this.addFriends(this.form)
+        .then(response => {
+          // console.log(response)
+          this.$bvToast.toast(`${response.msg}`, {
+            title: 'Notification',
+            variant: 'success',
+            solid: true
+          })
+          this.form = {
+            friend_email: ''
+          }
+        })
+        .catch(error => {
+          // console.log(error)
+          this.$bvToast.toast(`${error.data.msg}`, {
+            title: 'Notification',
+            variant: 'danger',
+            solid: true
+          })
+          // this.closeModal('add-friend-modal')
+        })
+    },
+    makeToast(msg, variant, append) {
       this.$bvToast(`${msg}`, {
         title: 'Notification',
         autoHideDelay: 5000,
@@ -460,8 +526,8 @@ export default {
         solid: true
       })
     },
-    closeModal() {
-      this.$refs['edit-user'].hide()
+    closeModal(modalId) {
+      this.$refs.[modalId].hide()
     },
     isLogout() {
       this.$bvModal
@@ -477,7 +543,12 @@ export default {
           centered: true
         })
         .then(value => {
-          value ? this.logout() : this.getUserById(this.user.user_id)
+          const setData = {
+            form: {
+              user_status: '0'
+            }
+          }
+          value ? this.logout(setData) : this.getUserById(this.user.user_id)
         })
         .catch(error => {
           this.$bvToast.toast(`${error.data.msg}`, {
