@@ -7,12 +7,18 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-css-only/css/bootstrap.min.css'
 // import 'mdbvue/lib/css/mdb.min.css'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPaperPlane } from '@fortawesome/free-regular-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueGeolocation from 'vue-browser-geolocation'
 
+library.add(faPaperPlane)
+
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.config.productionTip = false
 Vue.use(VueGoogleMaps, {
   load: {
