@@ -338,3 +338,177 @@
   margin-left: 8px;
   margin-top: 8px;
 }
+
+/* CARD ROOM CHAT */
+
+.card-chat-wrapper {
+  width: 100%;
+}
+
+.card-chat-items {
+  display: flex;
+  padding: 10px 5px;
+}
+
+.card-chat-image img {
+  width: 60px;
+}
+
+.card-chat-items .card-chat-top {
+  margin-bottom: 5px;
+}
+
+.card-chat-items .card-chat-time {
+  color: #848484;
+  float: right;
+}
+
+.card-chat-items .card-chat-name {
+  font-weight: 500;
+  white-space: nowrap;
+  font-weight: bold;
+  padding-left: 20px;
+  overflow: hidden;
+}
+
+.card-chat-items .card-chat-bottom {
+  display: flex;
+}
+
+.card-chat-bottom .card-chat-text {
+  color: #7e98df;
+  font-size: 14px;
+  white-space: nowrap;
+  padding-left: 20px;
+  overflow: hidden;
+}
+
+/* ROOM CHAT */
+
+.empty-room {
+  color: #848484;
+  text-align: center;
+  padding-top: 200px;
+}
+
+.room-chat {
+  position: relative;
+  height: 100%;
+  background: #FAFAFA; 
+}
+
+.room-chat .room-navbar {
+  z-index: 2;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 15px;
+}
+
+.room-image-profile img {
+  width: 64px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.room-desc {
+  display: flex;
+}
+
+.room-chat .nav-back {
+  width: 36px;
+  border-right: 2px solid #FAFAFA;
+  margin-right: 10px;
+  cursor: pointer;
+  display: none; 
+}
+
+.room-chat .nav-back:hover {
+  background: #efefef;
+}
+
+.room-chat .nav-back .icon-back{
+  margin-top: 17px;
+  font-size: 23px;
+}
+
+.room-chat .room-name {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.chat-body {
+  padding: 15px;
+}
+
+.room-body {
+  min-height: 400px;
+}
+
+.room-body .chat-collection {
+  margin-top: 20px;
+  font-size: 13px;
+}
+
+.chat-collection .chat-item {
+  display: flex;
+  margin: 15px;
+}
+
+.chat-item .chat-image-profile img {
+  width: 54px;
+  border-radius: 20px;
+}
+
+.chat-text {
+  padding: 20px;
+  margin-left: 10px;
+  /* position: relative; */
+  top: -11px;
+  color: #000;
+  max-width: 300px;
+  background: #fff;
+  border-radius: 35px 35px 35px 10px;
+}
+
+.chat-text.own {
+  border-radius: 35px 35px 10px 35px;
+  margin-right: 10px;
+  color: #fff;
+  background: #7E98DF;
+  align-items: center;
+  margin-right: 0;
+  margin-left: auto;
+  display: block;
+}
+
+.room-chat .room-footer {
+  background: #fff;
+  padding: 15px;
+  position: sticky;
+  bottom: 0;
+  width: -webkit-fill-available;
+}
+
+.room-footer input {
+  background: #efefef;
+  border: 0;
+  width: 90%;
+  padding: 10px;
+  border-radius: 15px;
+  outline: none;
+}
+
+.room-footer button {
+  font-size: 25px;
+  margin-top: 10px;
+  margin-left: 30px;
+  border: 0;
+  outline: none;
+  background: #fff;
+}
+
+.room-footer input:focus {
+  transition: .5s all;
+  border: 1px solid #7E98DF;
+}
