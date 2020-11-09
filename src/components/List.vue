@@ -273,27 +273,28 @@
       <br />
       <hr />
 
+      <Room />
       <!-- <b-row>
         <b-col sm="4" class="category-1">All</b-col>
         <b-col sm="4" class="category-2">Important</b-col>
         <b-col sm="4" class="category-3">Unread</b-col>
       </b-row> -->
-      <div class="room-chat">
+      <!-- <div class="room-chat">
         <b-row class="list-room" v-for="(value, index) in room" :key="index">
           <b-col sm="3">
             <b-img :src="value.img" class="room-pict"></b-img>
           </b-col>
           <b-col sm="6">
-            <p class="room-name">{{ value.name }}</p>
-            <!-- <p class="room-msg" v-if="isSender">Me: {{ value.message }}</p> -->
-            <p class="room-msg">{{ value.message }}</p>
+            <p class="room-name">{{ value.name }}</p> -->
+      <!-- <p class="room-msg" v-if="isSender">Me: {{ value.message }}</p> -->
+      <!-- <p class="room-msg">{{ value.message }}</p>
           </b-col>
           <b-col sm="3">
             <p class="room-time">{{ value.time }}</p>
             <div class="room-badge">{{ value.badge }}</div>
           </b-col>
         </b-row>
-      </div>
+      </div> -->
 
       <!-- <div class="room"> -->
     </b-container>
@@ -302,10 +303,14 @@
 
 <script>
 // import axios from 'axios'
+import Room from './Room'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'List',
+  components: {
+    Room
+  },
   data() {
     return {
       form: {
@@ -325,61 +330,61 @@ export default {
       },
       isAlert: false,
       alertMsg: '',
-      api_url: 'http://127.0.0.1:3000/',
-      username: '@gloriamckinney',
-      phoneNumber: '+6281310918549',
-      bio: "I'm Senior Developer from Microsoft and then im like culinary",
+      api_url: 'http://127.0.0.1:3000/'
+      // username: '@gloriamckinney',
+      // phoneNumber: '+6281310918549',
+      // bio: "I'm Senior Developer from Microsoft and then im like culinary",
       // user: {},
-      room: [
-        {
-          img: require('@/assets/image/dummy2.png'),
-          name: 'Theresa Webb',
-          message: 'Why did you do that?',
-          time: '15:20',
-          status: '',
-          isSender: false
-        },
-        {
-          img: require('@/assets/image/dummy3.png'),
-          name: 'Calvin Flores',
-          message: 'Hi, bro! Come to my house!',
-          time: '15:13',
-          status: '',
-          isSender: false
-        },
-        {
-          img: require('@/assets/image/dummy4.png'),
-          name: 'Gregory Bell',
-          message: 'Will you stop ignoring me?',
-          time: '15:13',
-          status: '',
-          isSender: false
-        },
-        {
-          img: require('@/assets/image/dummy5.png'),
-          name: 'Soham Henry',
-          message: 'Me: Bro, just fuck off',
-          time: '8:30',
-          status: '',
-          isSender: true
-        },
-        {
-          img: require('@/assets/image/dummy6.png'),
-          name: 'Mother ❤',
-          message: 'Me: Yes, of course come, ...',
-          time: '7:20',
-          status: '',
-          isSender: true
-        },
-        {
-          img: require('@/assets/image/dummy7.png'),
-          name: 'Brother',
-          message: 'Ok, Good Bye!',
-          time: 'Yesterday',
-          status: '',
-          isSender: true
-        }
-      ]
+      // room: [
+      //   {
+      //     img: require('@/assets/image/dummy2.png'),
+      //     name: 'Theresa Webb',
+      //     message: 'Why did you do that?',
+      //     time: '15:20',
+      //     status: '',
+      //     isSender: false
+      //   },
+      //   {
+      //     img: require('@/assets/image/dummy3.png'),
+      //     name: 'Calvin Flores',
+      //     message: 'Hi, bro! Come to my house!',
+      //     time: '15:13',
+      //     status: '',
+      //     isSender: false
+      //   },
+      //   {
+      //     img: require('@/assets/image/dummy4.png'),
+      //     name: 'Gregory Bell',
+      //     message: 'Will you stop ignoring me?',
+      //     time: '15:13',
+      //     status: '',
+      //     isSender: false
+      //   },
+      //   {
+      //     img: require('@/assets/image/dummy5.png'),
+      //     name: 'Soham Henry',
+      //     message: 'Me: Bro, just fuck off',
+      //     time: '8:30',
+      //     status: '',
+      //     isSender: true
+      //   },
+      //   {
+      //     img: require('@/assets/image/dummy6.png'),
+      //     name: 'Mother ❤',
+      //     message: 'Me: Yes, of course come, ...',
+      //     time: '7:20',
+      //     status: '',
+      //     isSender: true
+      //   },
+      //   {
+      //     img: require('@/assets/image/dummy7.png'),
+      //     name: 'Brother',
+      //     message: 'Ok, Good Bye!',
+      //     time: 'Yesterday',
+      //     status: '',
+      //     isSender: true
+      //   }
+      // ]
       //     urlApiHome: 'http://localhost:3000/home'
     }
   },
@@ -412,7 +417,7 @@ export default {
     //   // this.getAllUser()
   },
   methods: {
-    ...mapActions(['getFriendByUser', 'getUserById', 'updateUser', 'addFriends', 'logout']),
+    ...mapActions(['getFriendByUser', 'getUserById', 'updateUser', 'addFriends', 'logout', 'createRoom', 'getRoomById']),
     // created() {
     //   this.getUser(this.user.user_id)
     // },
@@ -431,8 +436,36 @@ export default {
     get_friendList() {
       this.getFriendByUser(this.user.user_id)
     },
-    create_room() {
-
+    create_room(data) {
+      const setData = {
+        sender_id: this.user.user_id,
+        getter_id: data
+      }
+      this.createRoom(setData)
+        .then(response => {
+          if (response.status === 200) {
+            const setData = {
+              user_id: this.user.user_id,
+              roomchat_id: response.data.roomchat_id
+            }
+            this.getRoomById(setData)
+            this.closeModal('contacts-modal')
+          } else {
+            const setData = {
+              user_id: this.user.user_id,
+              roomchat_id: response.data.result_a.roomchat_id
+            }
+            this.getRoomById(setData)
+            this.closeModal('contacts-modal')
+          }
+        }).catch(error => {
+          console.log(error)
+          this.$bvToast.toast(`${error.data.msg}`, {
+            title: 'Notification',
+            variant: 'danger',
+            solid: true
+          })
+        })
     },
     clickMarker(position) {
       console.log('clicked')
