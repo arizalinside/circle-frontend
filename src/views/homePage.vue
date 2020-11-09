@@ -12,7 +12,7 @@
           </b-col>
         </b-col> -->
         <b-col sm="8" style="padding:0;">
-          <Room />
+          <RoomChat />
         </b-col>
       </b-row>
     </b-container>
@@ -21,13 +21,13 @@
 
 <script>
 import List from '../components/List'
-import Room from '../components/Room'
+import RoomChat from '../components/RoomChat'
 
 export default {
   name: 'homePage',
   components: {
     List,
-    Room
+    RoomChat
   }
 }
 </script>
