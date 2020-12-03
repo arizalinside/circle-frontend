@@ -5,7 +5,7 @@ export default {
   state: {
     isChat: false,
     roomChat: '',
-    socket: io('http://127.0.0.1:3000/')
+    socket: io(`${process.env.VUE_APP_URL}`)
   },
   mutations: {
     setIsChat(state, payload) {
@@ -22,7 +22,7 @@ export default {
     createRoom(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://127.0.0.1:3000/chat/create', payload)
+          .post(`${process.env.VUE_APP_URL}/chat/create`, payload)
           .then(response => {
             resolve(response.data)
           })
@@ -35,7 +35,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            `http://127.0.0.1:3000/chat/room/${payload.user_id}/${payload.roomchat_id}`
+            `${process.env.VUE_APP_URL}/chat/room/${payload.user_id}/${payload.roomchat_id}`
           )
           .then(response => {
             console.log(response.data)
@@ -52,7 +52,7 @@ export default {
     sendMessage(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://127.0.0.1:3000/chat/send-message', payload)
+          .post(`${process.env.VUE_APP_URL}/chat/send-message`, payload)
           .then(response => {
             console.log(response)
             resolve(response.data)

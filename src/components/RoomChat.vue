@@ -18,7 +18,7 @@
               @click="set_friendProfile(roomChat.getter_id)"
             >
               <img
-                :src="URL_API + roomChat.room_image"
+                :src="URL_API + '/' + roomChat.room_image"
                 v-if="roomChat.room_image !== ''"
               />
               <img src="../assets/image/blank-profile.jpg" v-else />
@@ -84,7 +84,7 @@ export default {
       roomchat_id: '',
       message_text: '',
       typing: false,
-      URL_API: 'http://127.0.0.1:3000/'
+      URL_API: process.env.VUE_APP_URL
     }
   },
   watch: {

@@ -31,7 +31,7 @@ export default {
     getUserById(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://127.0.0.1:3000/user/${payload}`)
+          .get(`${process.env.VUE_APP_URL}/user/${payload}`)
           .then(response => {
             // console.log(response.data.data[0])
             context.commit('setUserData', response.data.data[0])
@@ -45,7 +45,7 @@ export default {
     registerUser(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://127.0.0.1:3000/user/register', payload)
+          .post(`${process.env.VUE_APP_URL}/user/register`, payload)
           .then(response => {
             resolve(response.data)
           })
@@ -57,7 +57,7 @@ export default {
     loginUser(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://127.0.0.1:3000/user/login', payload)
+          .post(`${process.env.VUE_APP_URL}/user/login`, payload)
           .then(response => {
             // console.log(context)
             // console.log(payload)

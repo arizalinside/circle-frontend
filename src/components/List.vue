@@ -12,7 +12,7 @@
           >
             <div class="profile-user">
               <b-img
-                :src="'http://127.0.0.1:3000/' + userData.user_image"
+                :src="api_url + '/' + userData.user_image"
               ></b-img>
               <div class="change-profile">
                 <!-- <span>Change Photo</span>
@@ -330,7 +330,7 @@ export default {
       },
       isAlert: false,
       alertMsg: '',
-      api_url: 'http://127.0.0.1:3000/'
+      api_url: process.env.VUE_APP_URL
       // username: '@gloriamckinney',
       // phoneNumber: '+6281310918549',
       // bio: "I'm Senior Developer from Microsoft and then im like culinary",

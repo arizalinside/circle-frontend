@@ -17,7 +17,7 @@ export default {
     getFriendByUser(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .get(`http://127.0.0.1:3000/friend/${payload}`)
+          .get(`${process.env.VUE_APP_URL}/friend/${payload}`)
           .then(response => {
             context.commit('setFriendList', response.data.data)
             resolve(response.data)
@@ -30,7 +30,7 @@ export default {
     addFriends(context, payload) {
       return new Promise((resolve, reject) => {
         axios
-          .post('http://127.0.0.1:3000/friend/add-friend', payload)
+          .post(`${process.env.VUE_APP_URL}/friend/add-friend`, payload)
           .then(response => {
             context.commit('setFriendList', response.data.data)
             resolve(response.data)

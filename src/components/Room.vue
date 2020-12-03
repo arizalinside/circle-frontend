@@ -10,7 +10,7 @@
         >
           <div class="card-chat-image">
             <img
-              :src="URL_API + value.room_image"
+              :src="URL_API + '/' + value.room_image"
               v-if="value.room_image !== ''"
             />
             <img src="../assets/image/blank-profile.jpg" v-else />
@@ -96,7 +96,7 @@ export default {
   data() {
     return {
       roomChatList: [],
-      URL_API: 'http://127.0.0.1:3000/',
+      URL_API: process.env.VUE_APP_URL,
       oldRoom: ''
     }
   },
@@ -133,7 +133,7 @@ export default {
     },
     get_roomList() {
       axios
-        .get(`http://127.0.0.1:3000/chat/room/${this.user.user_id}`)
+        .get(`${process.env.VUE_APP_URL}/chat/room/${this.user.user_id}`)
         .then(response => {
           // console.log(response)
           this.roomChatList = response.data.data

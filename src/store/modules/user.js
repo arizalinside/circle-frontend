@@ -14,7 +14,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .patch(
-            `http://127.0.0.1:3000/user/update/${payload.user_id}`,
+            `${process.env.VUE_APP_URL}/user/update/${payload.user_id}`,
             payload.form
           )
           .then(response => {
@@ -29,7 +29,7 @@ export default {
   updateStatus(context, payload) {
     return new Promise((resolve, reject) => {
       axios
-        .patch(`http://127.0.0.1:3000/user/update-status/${payload}`)
+        .patch(`${process.env.VUE_APP_URL}/user/update-status/${payload}`)
         .then(response => {
           console.log(response)
         })
@@ -41,7 +41,7 @@ export default {
   getFriendStatus(context, payload) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`http://127.0.0.1:3000/user/status/${payload}`)
+        .get(`${process.env.VUE_APP_URL}/user/status/${payload}`)
         .then(response => {
           console.log(response)
           context.commit('setFriendStatus', response.data.data.user_status)
